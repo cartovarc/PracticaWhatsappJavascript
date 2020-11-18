@@ -1,0 +1,5 @@
+{
+  "name": "Practica Javascript enviar mensaje a Whatsapp",
+  "description": "Enviaremo un Whatsapp desde una aplicación web",
+  "keywords": ["node", "twilio", "socket.io", "whatsapp", "vue", "express"]
+}

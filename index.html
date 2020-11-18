@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Enviar mensaje a wssp</title>
+  </head>
+  <body>
+    <div id="app">
+      <h5>Enviar un mensaje por wssp a: +14155238886</h5>
+      <h6>Con el contenido "join complex-offer"</h6>
+
+
+      <input v-model="mensaje" placeholder="Mensaje">
+      <br/>
+      <input v-model="celular" placeholder="Celular">
+      <br/>
+      <button v-on:click="enviar_datos">Enviar</button>
+    </div>
+  
+    <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.0.1/socket.io.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+
+    <script>
+      new Vue({
+          el: "#app",
+          data: {
+            mensaje: "",
+            celular: "+57",
+            socket: null
+          },
+          methods: {
+              enviar_datos() {
+                console.log("Celular: " + this.celular + ", Mensaje: " + this.mensaje);
+                this.socket.emit("mensaje_wssp", {"celular": this.celular, "mensaje": this.mensaje});
+                this.celular = "+57";
+                this.mensaje = "";
+              }
+          },
+          mounted() {
+            console.log("Se montó la app");
+
+            this.socket = io();
+            this.socket.on("connect", () => {
+              console.log("Se conectó con el servidor");
+            });
+
+            this.socket.on("respuesta", (respuesta) => {
+              console.log("El servidor respondio:");
+              console.log(respuesta);
+            });
+          }
+      });
+  
+    </script>
+  </body>
+</html>
+
